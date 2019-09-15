@@ -10,6 +10,8 @@ public class Weather {
 
     public Basic basic;
 
+    public Update update;
+
     public AQI aqi;
 
     public Now now;

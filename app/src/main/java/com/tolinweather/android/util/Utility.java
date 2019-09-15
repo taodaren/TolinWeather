@@ -2,9 +2,11 @@ package com.tolinweather.android.util;
 
 import android.text.TextUtils;
 
+import com.google.gson.Gson;
 import com.tolinweather.android.db.City;
 import com.tolinweather.android.db.County;
 import com.tolinweather.android.db.Province;
+import com.tolinweather.android.gson.Weather;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -80,4 +82,18 @@ public class Utility {
         return false;
     }
 
+    /**
+     * 将返回的 JSON 数据解析成 Weather 实体类
+     */
+    public static Weather handleWeatherResponse(String response) {
+        try {
+            JSONObject jsonObject = new JSONObject(response);
+            JSONArray jsonArray = jsonObject.getJSONArray("HeWeather");
+            String weatherContent = jsonArray.getJSONObject(0).toString();
+            return new Gson().fromJson(weatherContent, Weather.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
