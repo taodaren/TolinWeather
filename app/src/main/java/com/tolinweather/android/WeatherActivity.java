@@ -1,5 +1,6 @@
 package com.tolinweather.android;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
@@ -22,6 +23,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.bumptech.glide.Glide;
 import com.tolinweather.android.gson.Forecast;
 import com.tolinweather.android.gson.Weather;
+import com.tolinweather.android.service.AutoUpdateService;
 import com.tolinweather.android.util.HttpUtil;
 import com.tolinweather.android.util.Utility;
 
@@ -237,6 +239,9 @@ public class WeatherActivity extends AppCompatActivity implements View.OnClickLi
         carWashText.setText(carWash);
         sportText.setText(sport);
         weatherLayout.setVisibility(View.VISIBLE);
+        // 启动后台自动更新服务  每 8 小时更新一次天气
+        Intent intent = new Intent(this, AutoUpdateService.class);
+        startService(intent);
     }
 
     @Override
